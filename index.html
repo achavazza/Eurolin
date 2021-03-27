@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Calculadora Papel Higienico</title>
+
+    <!-- Metadata para PWA -->
+    <!-- Modificar la barra de estado para ANDROID -->
+    <meta name="theme-color" content="#00D1B2">
+    
+    <!-- Optimizaciones de SEO -->
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFruendly" content="true">
+    
+    <!-- Modificar Barra de estado en iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Iconos -->
+    <link rel="shortcut icon" href="./img/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="./img/icon-512.png">
+    <link rel="apple-touch-startapp-image" href="./img/icon-512.png">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="./manifest.json">
+
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <!-- Hojas de estilo -->
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div id="app">
+        <header id="header" class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <p class="title">
+                    <h1 class="title is-uppercase has-text-weight-light">{{title}}</h1>
+                </p>
+            </div>
+        </div>
+        </header>
+        <div class="container">
+        <div>
+            <div class="item">
+            <div class="columns is-mobile is-variable is-1-mobile">
+                <div class="column">
+                    <span class="label-title">Metros</span>
+                </div>
+                <div class="column">
+                    <span class="label-title">Precio</span>
+                </div>
+                <div class="column is-narrow">
+                    <span class="dummy"></span>
+                </div>
+            </div>
+            </div>
+
+            <form :change="result">
+                <ul>
+                    <li v-for="(field, index) in fields" :key="index" class="item" :class="{'has-background-primary':(field == lowestEl)}">
+                        <div class="columns is-mobile is-variable is-1-mobile">
+                            <div class="column">
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="input" type="number" v-model.number="field.n1" inputmode="numeric" pattern="[0-9]*" placeholder="0.00" min="1" step="any">
+                                        <small>{{field.ptom}} &times 1$</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="input" type="number" v-model.number="field.n2" inputmode="numeric" pattern="[0-9]*" placeholder="0.00" min="1" step="any">
+                                        <small>{{field.mtop}} &times; 1m</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-narrow">
+                                <div class="field">
+                                    <button tabindex="-1" class="button is-danger" @click.prevent="removeField(index)">
+                                        <span class="icon">
+                                            <span class="material-icons">close</span>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div class="is-fab">
+            <button class="button is-rounded is-primary" @click.prevent="addField()">
+                <span class="icon"><span class="material-icons">add</span></span>
+            </button>
+        </div>
+        <!--
+        {{result}}
+        {{log}}
+        {{lowestEl}}
+        -->
+        </div>
+    </div>
+    <script src="./load.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/mountApp.js"></script>
+</body>
+</html>

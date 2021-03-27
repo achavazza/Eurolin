@@ -1,0 +1,66 @@
+body{
+    font-family: 'Poppins', sans-serif;
+}
+
+.is-fab {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+}
+.is-fab .button,
+.is-fab .button:active,
+.is-fab .button:focus{
+    box-shadow:
+    0 11px  15px -7px rgb(0 0 0 / 20%),
+    0  24px 38px  3px rgb(0 0 0 / 14%),
+    0   9px 46px  8px rgb(0 0 0 / 12%)
+    !important;
+}
+/*
+.is-fab:hover {
+    color: bulmaDarken($primary, 2.5%);
+}
+*/
+
+.is-fab,
+.is-fab .button,
+.is-fab .material-icons {
+    font-size: 20px;
+}
+
+.is-fab .button{
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.item{
+    padding: .75rem;
+    border-radius: 6px;
+}
+@media screen and (max-width: 1023px){
+.item{
+    border-radius: 0;
+}
+}
+.dummy{
+    width: 40px;
+    display: inline-block;
+}
+.label-title{
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    font-size: .7em;
+}
+.hidden{
+    display: none;
+}
+
+/*
+@media screen and (max-width: 1023px){
+.container{
+    padding-left: .75rem;
+    padding-right: .75rem;
+}
+}
+*/
