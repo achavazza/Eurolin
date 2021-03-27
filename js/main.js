@@ -1,7 +1,6 @@
 const app = Vue.createApp({
     data() {
         return{
-            title: "Calculadora Vue",
             fields: [
                 {
                     n1: "",
