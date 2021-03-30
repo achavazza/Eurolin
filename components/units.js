@@ -2,7 +2,7 @@ const Units = { template: `
         <div>
             <div class="item">
             <div class="columns is-mobile is-variable is-1-mobile">
-                <div class="column">
+                <div class="column is-2">
                     <span class="label-title">Unidades</span>
                 </div>
                 <div class="column">
