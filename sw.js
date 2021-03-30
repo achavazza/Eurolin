@@ -16,6 +16,7 @@ const urlsToCache = [
     "./js/main.js",
     "./js/routes.js",
     "./js/mountApp.js",
+    "./components/",
     "./components/dashboard.js",
     "./components/units.js",
     "//fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap",
