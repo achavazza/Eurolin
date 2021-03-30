@@ -1,8 +1,6 @@
 body{
     font-family: 'Poppins', sans-serif;
-}
-#app{
-    margin-bottom: 90px;
+    padding-bottom: 90px;
 }
 
 .is-fab {
@@ -39,10 +37,12 @@ body{
 .item{
     padding: .75rem;
     border-radius: 6px;
+    margin-bottom: .5em;
 }
 @media screen and (max-width: 1023px){
-.item{
-    border-radius: 0;
+    .item{
+        border-radius: 0;
+        margin-bottom: 0;
 }
 }
 .dummy{
@@ -71,6 +71,6 @@ body{
 .hero.is-primary .tabs.is-toggle li.is-active a{
     color: #00d1b2 !important;
 }
-.item.has-background-primary small{
+.item.has-background-primary:not(.has-background-danger-light) small{
     color: #fff;
 }
