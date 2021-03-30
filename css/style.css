@@ -1,6 +1,9 @@
 body{
     font-family: 'Poppins', sans-serif;
 }
+#app{
+    margin-bottom: 90px;
+}
 
 .is-fab {
   position: fixed;
