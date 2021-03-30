@@ -58,16 +58,16 @@ data() {
     return{
         fields: [
             {
-                n1: 0,
-                n2: 0.00,
+                n1: "",
+                n2: "",
                 res: 0,
                 mbp: 0,
                 ptom: 0.00,
                 mtop: 0.00,
             },
             {
-                n1: 0,
-                n2: 0.00,
+                n1: "",
+                n2: "",
                 res: 0,
                 mbp: 0,
                 ptom: 0.00,
@@ -152,8 +152,8 @@ computed: {
 methods:{
     addField(){
         this.fields.push({
-                n1: 0,
-                n2: 0.00,
+                n1: "",
+                n2: "",
                 res: 0,
                 mbp: 0,
                 ptom: 0.00,

@@ -70,8 +70,8 @@ data() {
         fields: [
             {
                 n0: 1,
-                n1: 0,
-                n2: 0.00,
+                n1: "",
+                n2: "",
                 res: 0,
                 mbp: 0,
                 ptom: 0.00,
@@ -79,8 +79,8 @@ data() {
             },
             {
                 n0: 1,
-                n1: 0,
-                n2: 0.00,
+                n1: "",
+                n2: "",
                 res: 0,
                 mbp: 0,
                 ptom: 0.00,
@@ -163,8 +163,8 @@ methods:{
     addField(){
         this.fields.push({
                 n0: 1,
-                n1: 0,
-                n2: 0.00,
+                n1: "",
+                n2: "",
                 res: 0,
                 mbp: 0,
                 ptom: 0.00,
