@@ -19,7 +19,7 @@ const Units = { template: `
 
             <form :change="result">
                 <ul>
-                    <li v-for="(field, index) in fields" :key="index" class="item" :class="{'has-background-primary':(field == lowestEl)}">
+                    <li v-for="(field, index) in fields" :key="index" class="item" :class="{'has-background-danger-light':(field === highestEl && field != lowestEl ), 'has-background-primary':(field != highestEl && field === lowestEl)}">
                         <div class="columns is-mobile is-variable is-1-mobile">
                             <div class="column is-2">
                                 <div class="field">
@@ -69,18 +69,18 @@ data() {
     return{
         fields: [
             {
-                n0: "",
-                n1: "",
-                n2: "",
+                n0: 1,
+                n1: 0,
+                n2: 0.00,
                 res: 0,
                 mbp: 0,
                 ptom: 0.00,
                 mtop: 0.00,
             },
             {
-                n0: "",
-                n1: "",
-                n2: "",
+                n0: 1,
+                n1: 0,
+                n2: 0.00,
                 res: 0,
                 mbp: 0,
                 ptom: 0.00,
@@ -129,27 +129,42 @@ computed: {
         return this.fields;
     },
     highestEl(){
-        if (this.fields.length == 0 ){
+        if (this.fields.length == 0){
             return 
         } 
         selectedFieldHigh = this.fields.reduce((a,b) => Number(a.res) > Number(b.res) ? a : b);
+        
         return selectedFieldHigh
     },
     lowestEl(){
         if (this.fields.length == 0 ){
             return 
-        } 
+        }
         selectedFieldLow = this.fields.reduce((a,b) => Number(a.res) < Number(b.res) ? a : b);
-
+        /*
+        selectedFieldLow  = this.fields.reduce(function(a,b){
+            let v = false;
+            //console.log(a);
+            if(Number(a.res) < Number(b.res)){
+                v = a
+            } else {
+                v = b
+            }
+            if(a.res != '--' && b.res != '--' ){
+                return v
+            }
+            return false
+        });
+        */
         return selectedFieldLow;
     }
 },
 methods:{
     addField(){
         this.fields.push({
-                n0: "",
-                n1: "",
-                n2: "",
+                n0: 1,
+                n1: 0,
+                n2: 0.00,
                 res: 0,
                 mbp: 0,
                 ptom: 0.00,
