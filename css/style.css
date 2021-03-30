@@ -64,3 +64,10 @@ body{
 }
 }
 */
+
+.hero.is-primary .tabs.is-toggle li.is-active a{
+    color: #00d1b2 !important;
+}
+.item.has-background-primary small{
+    color: #fff;
+}

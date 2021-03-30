@@ -27,6 +27,7 @@
     <link rel="manifest" href="./manifest.json">
 
     <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/vue-router@4"></script>
 
     <!-- Hojas de estilo -->
     <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
@@ -39,81 +40,47 @@
 <body>
     <div id="app">
         <header id="header" class="hero is-primary">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title is-uppercase has-text-weight-light">
-                    Calculín
-                </h1>
-                <p class="subtitle">
-                    Una calculadora de Papel
-                </p>
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title is-uppercase has-text-weight-light">
+                        Calculín
+                    </h1>
+                    <p class="subtitle">
+                        Una calculadora de Papel
+                    </p>
+                    <div class="tabs is-toggle is-fullwidth is-uppercase">
+                        <ul>
+                            <router-link to="/" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                                <li :class="[isActive && 'router-link-active', isExactActive && 'is-active']">
+                                    <a :href="href" @click="navigate">Metros</a>
+                                </li>
+                            </router-link>
+                            <router-link to="/Units" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                                <li :class="[isActive && 'router-link-active', isExactActive && 'is-active']">
+                                    <a :href="href" @click="navigate">Unidades</a>
+                                </li>
+                            </router-link>
+                            <!--
+                                <li><router-link to="/">Dashboard</router-link></li>
+                                <li><router-link to="/Units">Unidades</router-link></li>
+                            -->
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
+            
+            
         </header>
         <div class="container">
-        <div>
-            <div class="item">
-            <div class="columns is-mobile is-variable is-1-mobile">
-                <div class="column">
-                    <span class="label-title">Metros</span>
-                </div>
-                <div class="column">
-                    <span class="label-title">Precio</span>
-                </div>
-                <div class="column is-narrow">
-                    <span class="dummy"></span>
-                </div>
-            </div>
-            </div>
-
-            <form :change="result">
-                <ul>
-                    <li v-for="(field, index) in fields" :key="index" class="item" :class="{'has-background-primary':(field == lowestEl)}">
-                        <div class="columns is-mobile is-variable is-1-mobile">
-                            <div class="column">
-                                <div class="field">
-                                    <div class="control">
-                                        <input class="input" type="number" v-model.number="field.n1" inputmode="numeric" pattern="[0-9]*" placeholder="0.00" min="1" step="any">
-                                        <small>{{field.ptom}} &times 1$</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="field">
-                                    <div class="control">
-                                        <input class="input" type="number" v-model.number="field.n2" inputmode="numeric" pattern="[0-9]*" placeholder="0.00" min="1" step="any">
-                                        <small>{{field.mtop}} &times; 1m</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="column is-narrow">
-                                <div class="field">
-                                    <button tabindex="-1" class="button is-danger" @click.prevent="removeField(index)">
-                                        <span class="icon">
-                                            <span class="material-icons">close</span>
-                                        </span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </form>
-        </div>
-        <div class="is-fab">
-            <button class="button is-rounded is-primary" @click.prevent="addField()">
-                <span class="icon"><span class="material-icons">add</span></span>
-            </button>
-        </div>
-        <!--
-        {{result}}
-        {{log}}
-        {{lowestEl}}
-        -->
+            <router-view></router-view>
         </div>
     </div>
     <script src="./load.js"></script>
-    <script src="./js/main.js"></script>
+    <script src="./components/Dashboard.js"></script>
+    <script src="./components/Units.js"></script>
+    
+    <script src="./js/routes.js"></script>
+    
     <script src="./js/mountApp.js"></script>
 </body>
 </html>
