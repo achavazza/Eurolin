@@ -1,4 +1,4 @@
-const CACHE_NAME = "v1_cache_calculadora_PH";
+const CACHE_NAME = "v1_cache_eurolin";
 const urlsToCache = [
     "./",
     "./?umt_source=web_app_manifest",

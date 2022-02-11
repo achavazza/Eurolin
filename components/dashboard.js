@@ -1,171 +1,182 @@
-const Dashboard = { template: `
-        <div>
-            <div class="item">
-            <div class="columns is-mobile is-variable is-1-mobile">
-                <div class="column">
-                    <span class="label-title">Metros</span>
-                </div>
-                <div class="column">
-                    <span class="label-title">Precio</span>
-                </div>
-                <div class="column is-narrow">
-                    <span class="dummy"></span>
-                </div>
-            </div>
-            </div>
+var cotizDefault = 125.23;
 
-            <form :change="result">
-                <ul>
-                    <li v-for="(field, index) in fields" :key="index" class="item" :class="{'has-background-danger-light':(field === highestEl && field != lowestEl ), 'has-background-primary':(field != highestEl && field === lowestEl)}">
-                        <div class="columns is-mobile is-variable is-1-mobile">
-                            <div class="column">
-                                <div class="field">
-                                    <div class="control">
-                                        <input class="input" type="number" v-model.number="field.n1" inputmode="numeric" pattern="[0-9]*" placeholder="0.00" min="1" step="any">
-                                        <small>{{field.ptom}} &times 1$</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="field">
-                                    <div class="control">
-                                        <input class="input" type="number" v-model.number="field.n2" inputmode="numeric" pattern="[0-9]*" placeholder="0.00" min="1" step="any">
-                                        <small>{{field.mtop}} &times; 1m</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="column is-narrow">
-                                <div class="field">
-                                    <button tabindex="-1" class="button is-danger" @click.prevent="removeField(index)">
-                                        <span class="icon">
-                                            <span class="material-icons">close</span>
-                                        </span>
-                                    </button>
+const Dashboard = {
+	template: `
+       <div class="section">
+        <form :change="result" class="my-5">
+            <ul>
+                <li>
+                    <div class="columns is-multiline">
+                        
+                        <div class="column is-full-mobile is-half-desktop">
+                            <div class="field">
+                                <div class="control">
+                                    <label class="label">EUR</label>
+                                    <input class="input mb-5" type="number" v-model.number="field.euro" inputmode="numeric" placeholder="0" min="0" step="0.01" lang="es" >
+                                    <span class="is-4 my-3 is-block">{{field.pesoVal}}</span>
+                                    <span class="is-4 my-3 is-block">{{field.pesoValPais}} <small class="has-text-grey-light">(imp PAIS 30%)</small></span>
+                                    <span class="is-4 my-3 is-block">{{field.pesoValPaisGanancias}} <small class="has-text-grey-light">(imp PAIS + Ganancias 35%)</small></span>
                                 </div>
                             </div>
                         </div>
-                    </li>
-                </ul>
-            </form>
+                        <div class="column is-full-mobile is-half-desktop">
+                            <div class="field">
+                                <div class="control">
+                                    <label class="label">ARS</label>
+                                    <input class="input mb-5" type="number" v-model.number="field.peso" inputmode="numeric" placeholder="0" min="0" step="0.01" lang="es">
+                                    <span class="is-4 my-3 is-block">{{field.euroVal}}</span>
+                                    <span class="is-4 my-3 is-block">{{field.euroValPais}} <small class="has-text-grey-light">(imp PAIS 30%)</small></span>
+                                    <span class="is-4 my-3 is-block">{{field.euroValPaisGanancias}} <small class="has-text-grey-light">(imp PAIS + Ganancias 35%)</small></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-full">
+                            <hr />
+                            <label class="label">Cotizacion euro</label>
+                            <small class="has-text-grey-light is-block mb-2">(cuantos pesos sale 1 euro)</small>
+                            <div class="field  is-grouped">
+                                <div class="control is-expanded">
+                                    <input class="input mb-5" type="number" v-model.number="field.cotizacion" inputmode="numeric" placeholder="0" step="0.01">
+                                </div>
+                                <div class="control">
+                                    <button class="button" v-on:click="setValue()">Guardar</button>
+                                </div>
+                                <div class="control">
+                                    <button class="button" v-on:click="resetValue()">Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </form>
         </div>
-        <div class="is-fab">
-            <button class="button is-rounded is-primary" @click.prevent="addField()">
-                <span class="icon"><span class="material-icons">add</span></span>
-            </button>
-        </div>
-`,
-data() {
-    return{
-        fields: [
-            {
-                n1: "",
-                n2: "",
-                res: 0,
-                mbp: 0,
-                ptom: 0.00,
-                mtop: 0.00,
-            },
-            {
-                n1: "",
-                n2: "",
-                res: 0,
-                mbp: 0,
-                ptom: 0.00,
-                mtop: 0.00,
-            }
-        ]
-    };
-},
-computed: {
-    result(){
-        let fieldList = this.fields;
-        let val = 0;
-            
-        fieldList.forEach(field => {                
-            
-            let val = field.n2 / field.n1;
-            let val2 = field.n1 / field.n2;
+    `,
 
-            if(isNaN(val)){
-                field.res = "--";
-                field.mtop = "--";
-            }else{
-                if (val === Infinity || val === -Infinity){
-                    field.res = "Error"
-                } else {
-                    field.res = val;
-                    field.mtop = val.toFixed(2) + '$';
-                }
-                //this.lowestEl
-            }
-            
-            if(isNaN(val2)){
-                field.mbp = "--";
-                field.ptom = "--";
-            }else{
-                if (val2 === Infinity || val2 === -Infinity){
-                    field.mbp = "Error"
-                } else {
-                    field.mbp = val2;    
-                    field.ptom = val2.toFixed(2) + 'm';
-                }
-                //this.lowestEl
-            }
-        });
-        var fields = this.fields
-    },
-    log(){
-        return this.fields;
-    },
-    highestEl(){
-        if (this.fields.length == 0){
-            return 
-        } 
-        selectedFieldHigh = false;
-        selectedFieldHigh = this.fields.reduce((a,b) => Number(a.res) > Number(b.res) ? a : b);
-        
-        return selectedFieldHigh
-    },
-    lowestEl(){
-        if (this.fields.length == 0 ){
-            return 
-        } 
-        selectedFieldLow = this.fields.reduce((a,b) => Number(a.res) < Number(b.res) ? a : b);
-        /* 
-        selectedFieldLow  = this.fields.reduce(function(a,b){
-            let v = false;
-            //console.log(a);
-            if(Number(a.res) < Number(b.res)){
-                v = a
-            } else {
-                v = b
-            }
-            if(a.res != '--' && b.res != '--'){
-                return v
-            }
-            return v
-        });
-        */
-        return selectedFieldLow;
-    }
-},
-methods:{
-    addField(){
-        this.fields.push({
-                n1: "",
-                n2: "",
-                res: 0,
-                mbp: 0,
-                ptom: 0.00,
-                mtop: 0.00,
-            });
-    },
-    removeField(index){
-        //this.$delete(this.fields, index)
-        this.fields.splice(index, 1);
-        if(this.fields.length <= 1){
-            this.addField();
-        }
-    }
-}
-}
+	data() {
+		return {
+			field: {
+				cotizacion: null,
+				euro: null,
+				euroRes: 0,
+				euroVal: 0,
+				euroValPais: 0,
+				euroValPaisGanancias: 0,
+				peso: null,
+				pesoRes: 0,
+				pesoVal: 0,
+				pesoValPais: 0,
+				pesoValPaisGanancias: 0,
+			},
+		};
+	},
+	computed: {
+		result() {
+			//this.euro = this.peso / 117.28;
+			// default expire time: 1 day
+			//this.$cookies.set('cotizacion',this.field.cotizacion,"1d");
+			//console.log($cookies.get('cotizacion'));
+			//const cotizDefault  = 125.23;
+			//this.$cookies.set('cotizacion', cotizDefault);
+			//console.log(this.$cookies.get('cotizacion'));
+			//this.field.cotizacion = this.$cookies.get('cotizacion');
+			
+
+			const cotiz = this.field.cotizacion;
+			const impPais = 1.3;
+			const impPaisGan = 1.65;
+
+			let conv = cotiz * 1.3;
+			let conv65 = cotiz * 1.65;
+
+			//const conv   = 162.799;
+			//const conv65 = 206.6295;
+			let field = this.field;
+			let val = 0;
+
+			let peso = this.field.euro * cotiz;
+			let euro = this.field.peso / cotiz;
+
+			//this.field.euro = euro;
+			//this.field.peso = peso;
+
+			if (isNaN(euro)) {
+				field.euroRes = "--";
+				field.euroVal = "--";
+			} else {
+				if (euro === Infinity || euro === -Infinity) {
+					field.euroRes = "Error";
+				} else {
+					//this.field.euro = euro;
+					//field.euroRes = euro;
+					field.euroVal = euro.toFixed(2) + " €";
+					field.euroValPais = (euro / impPais).toFixed(2) + " €";
+					field.euroValPaisGanancias = (euro / impPaisGan).toFixed(2) + " €";
+				}
+			}
+			if (isNaN(peso)) {
+				field.pesoRes = "--";
+				field.pesoVal = "--";
+			} else {
+				if (peso === Infinity || peso === -Infinity) {
+					field.pesoRes = "Error";
+				} else {
+					//this.field.peso = peso;
+					//field.pesoRes = peso;
+					//field.pesoVal = peso.toFixed(2) + ' $';
+					field.pesoVal = peso.toFixed(2) + " $";
+					field.pesoValPais = (peso * impPais).toFixed(2) + " $";
+					field.pesoValPaisGanancias = (peso * impPaisGan).toFixed(2) + " $";
+				}
+			}
+		},
+	},
+
+	mounted() {
+		//this.$cookies.config('30d')
+		//this.field.cotizacion = this.$cookies.get("cotizacion");
+		if (this.field.cotizacion == null) {
+			//this.$cookies.set("cotizacion", cotizDefault);
+			this.field.cotizacion = cotizDefault;
+		}
+	},
+	methods: {
+		setValue() {
+			this.field.cotizacion = cotizDefault;
+			//this.$cookies.set("cotizacion", this.field.cotizacion);
+			//console.log(this.$cookies.get('cotizacion'))
+		},
+		resetValue() {
+			//this.$cookies.remove('cotizacion');
+			//this.field.cotizacion = cotizDefault;
+			//this.$cookies.set("cotizacion", cotizDefault);
+			this.field.cotizacion = cotizDefault;
+			//console.log(this.$cookies.get('cotizacion'))
+		},
+
+		pesoargentinoEuro(val) {
+			inputEuro = val * 117.28;
+		},
+		dolaresPesoargentino(val) {
+			inputPesos = val / 117.28;
+		},
+		pesoargentinoEurovendedor(val) {
+			inputEurovender = val * 125.23;
+		},
+		dolaresvendedorPesoargentino(val) {
+			inputPesosvender = val / 125.23;
+		},
+		pesoargentinoEurovendedorahorro(val) {
+			inputEurovenderahorro = val * 162.799;
+		},
+		eurovendedorahorroPesoargentino(val) {
+			inputPesosvenderahorro = val / 162.799;
+		},
+		pesoargentinoEurovendedorahorro65(val) {
+			inputEurovenderahorro65 = val * 206.6295;
+		},
+		dolaresvendedorahorro65Pesoargentino(val) {
+			inputPesosvenderahorro65 = val / 206.6295;
+		},
+	},
+};

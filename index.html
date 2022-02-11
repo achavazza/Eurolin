@@ -8,7 +8,7 @@
 
     <!-- Metadata para PWA -->
     <!-- Modificar la barra de estado para ANDROID -->
-    <meta name="theme-color" content="#00D1B2">
+    <meta name="theme-color" content="#3e8ed0">
     
     <!-- Optimizaciones de SEO -->
     <meta name="MobileOptimized" content="width">
@@ -39,15 +39,16 @@
 </head>
 <body>
     <div id="app">
-        <header id="header" class="hero is-primary">
+        <header id="header" class="hero is-info">
             <div class="hero-body">
                 <div class="container">
                     <h1 class="title is-uppercase has-text-weight-light">
-                        Calculín
+                        Eurolin
                     </h1>
                     <p class="subtitle">
-                        Una calculadora de Papel
+                        Euros con impuestos
                     </p>
+                    <!--
                     <div class="tabs is-toggle is-fullwidth is-uppercase">
                         <ul>
                             <router-link to="/" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
@@ -60,12 +61,11 @@
                                     <a :href="href" @click="navigate">Unidades</a>
                                 </li>
                             </router-link>
-                            <!--
                                 <li><router-link to="/">Dashboard</router-link></li>
                                 <li><router-link to="/Units">Unidades</router-link></li>
-                            -->
-                        </ul>
-                    </div>
+                            </ul>
+                        </div>
+                    -->
                 </div>
             </div>
             
@@ -80,6 +80,11 @@
     <script src="./components/units.js"></script>
     
     <script src="./js/routes.js"></script>
+    <!--
+        <script src="./js/vue-cookies.js"></script>
+
+        <script type="text/jasvascript" src="https://unpkg.com/browse/js-cookie@2.2.0/src/js.cookie.js"></script>
+    -->
     
     <script src="./js/mountApp.js"></script>
 </body>

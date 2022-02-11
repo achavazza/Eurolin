@@ -76,7 +76,7 @@ body{
 */
 
 .hero.is-primary .tabs.is-toggle li.is-active a{
-    color: #00d1b2 !important;
+    color: #3e8ed0 !important;
 }
 .item.has-background-primary:not(.has-background-danger-light) small{
     color: #fff;
